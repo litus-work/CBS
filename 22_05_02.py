@@ -23,11 +23,9 @@ class UpdateContact(Contact):
         return f"{self.name} {self.surname} працює як {self.job}."
 
 
-# Створення екземплярів
 c1 = Contact("Іваненко", "Іван", 30, "+380501112233", "ivan@example.com")
 c2 = UpdateContact("Петренко", "Олена", 28, "+380671234567", "olena@example.com", "дизайнер")
 
-# Дослідження стану об'єктів
 print("\n__dict__:")
 print("Contact:", c1.__dict__)
 print("UpdateContact:", c2.__dict__)
@@ -38,7 +36,6 @@ print("UpdateContact.__base__:", UpdateContact.__base__)
 print("\n__bases__:")
 print("UpdateContact.__bases__:", UpdateContact.__bases__)
 
-# Методи
 print("\nМетоди:")
 print("Contact: get_contact ->", c1.get_contact())
 c1.send_message("Вітаємо у системі!")
