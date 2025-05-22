@@ -11,7 +11,7 @@ class Contact:
         return f"{self.name} {self.surname}, {self.mob_phone}"
 
     def send_message(self, message: str) -> None:
-        print(f"Повідомлення для {self.name}: {message}")
+        print(f"Повідомлення  для {self.name}: {message}")
 
 
 class UpdateContact(Contact):
