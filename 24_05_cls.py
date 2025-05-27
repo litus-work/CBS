@@ -64,18 +64,3 @@
 # }
 #
 # print(value_by_index)
-
-
-# Вхідна послідовність
-iterable = [1, 2, 3, 3, 3, 4, 5, 5, 5, 6, 2, 2, 2, 7, 8, 9]
-
-def compress_sequence(iterable: list):
-    prev_value = object()  # використовуємо унікальний об'єкт
-    for value in iterable:
-        if prev_value != value:
-            yield value
-            prev_value = value
-
-# Генеруємо список без повторень підряд
-list_1 = list(compress_sequence(iterable))
-print(list_1)
