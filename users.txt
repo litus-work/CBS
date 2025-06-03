@@ -1,0 +1,128 @@
+[
+    {
+        "fullname": "не знайдено",
+        "birthday": "не знайдено",
+        "phone": "не знайдено",
+        "email": "не знайдено"
+    },
+    {
+        "fullname": "Іваненко Марія Степанівна",
+        "birthday": "14.03.1989",
+        "phone": "+380503456789\n   ",
+        "email": "maria.ivanenko89@gmail.com"
+    },
+    {
+        "fullname": "Петренко Олександр Ігорович",
+        "birthday": "22.11.1993",
+        "phone": "+38(067)123-45-67\n   ",
+        "email": "o.p.petrenko@ukr.net"
+    },
+    {
+        "fullname": "Васильчук Анна\n   День",
+        "birthday": "5 серпня 2000",
+        "phone": "+38098-765-43-21\n   ",
+        "email": "anna.vasylchuk2000@gmail.com"
+    },
+    {
+        "fullname": "Мельник Юрій",
+        "birthday": "не знайдено",
+        "phone": "не знайдено",
+        "email": "не знайдено"
+    },
+    {
+        "fullname": "Tetiana\n   Birth",
+        "birthday": "не знайдено",
+        "phone": "не знайдено",
+        "email": "не знайдено"
+    },
+    {
+        "fullname": "Сергієнко Максим Валерійович",
+        "birthday": "1988.07",
+        "phone": "093-999-88-77\n   ",
+        "email": "не знайдено"
+    },
+    {
+        "fullname": "Дмитренко Владислава",
+        "birthday": "не знайдено",
+        "phone": "не знайдено",
+        "email": "не знайдено"
+    },
+    {
+        "fullname": "Федоренко Олена\n   Дата",
+        "birthday": "не знайдено",
+        "phone": "не знайдено",
+        "email": "не знайдено"
+    },
+    {
+        "fullname": "Taran Oleg\n   Date",
+        "birthday": "не знайдено",
+        "phone": "не знайдено",
+        "email": "o.taran@gmail.com"
+    },
+    {
+        "fullname": "Савчук Ірина\n    День",
+        "birthday": "2 червня 1995",
+        "phone": "не знайдено",
+        "email": "iryna_savchuk95@i.ua"
+    },
+    {
+        "fullname": "Ігоренко Світлана",
+        "birthday": "не знайдено",
+        "phone": "не знайдено",
+        "email": "svetlana.ihorenko@gmail.com"
+    },
+    {
+        "fullname": "Прокопенко Андрій\n    Birthday",
+        "birthday": "не знайдено",
+        "phone": "не знайдено",
+        "email": "a.prokopenko@company.org"
+    },
+    {
+        "fullname": "Mykhailo Dobrov\n    Born",
+        "birthday": "не знайдено",
+        "phone": "не знайдено",
+        "email": "m.dobrov@protonmail.com"
+    },
+    {
+        "fullname": "Нікітенко Юлія\n    Дата",
+        "birthday": "20.10.1998",
+        "phone": "098-111-22-33\n    ",
+        "email": "не знайдено"
+    },
+    {
+        "fullname": "Шевченко Артем\n    Дата",
+        "birthday": "17.02.1987",
+        "phone": "+38(050)555-66-77\n    ",
+        "email": "не знайдено"
+    },
+    {
+        "fullname": "Ільченко Валерія\n    Дата",
+        "birthday": "1999-04",
+        "phone": "066 123 4567\n    ",
+        "email": "ilchenko.valeriya@gmail.com"
+    },
+    {
+        "fullname": "Катерина Ковальчук\n    Дата",
+        "birthday": "не знайдено",
+        "phone": "073.987.6543\n    ",
+        "email": "не знайдено"
+    },
+    {
+        "fullname": "Moroz Ivan\n    Birthdate",
+        "birthday": "не знайдено",
+        "phone": "не знайдено",
+        "email": "i.moroz@icehost.com"
+    },
+    {
+        "fullname": "Лисенко Вікторія\n    Дата",
+        "birthday": "03.03.1993",
+        "phone": "не знайдено",
+        "email": "v.lysenko@mail.ua"
+    },
+    {
+        "fullname": "Степаненко Богдан\n    День",
+        "birthday": "не знайдено",
+        "phone": "099 111 00 44\n    ",
+        "email": "b.stepanenko@edu.org"
+    }
+]
