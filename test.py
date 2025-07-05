@@ -1,72 +1,50 @@
-import math
-from datetime import datetime
+import re
+from html import escape
 
-def safe_get_value(obj, default=0.0):
-    if isinstance(obj, dict):
-        return obj.get('value', default)
-    elif isinstance(obj, (int, float, str)):
-        return obj
-    return default
+def structure_ai_email(raw: str) -> dict:
+    """Убираем <think>, вытягиваем subject и аккуратно формируем тело письма."""
+    # 1) вырезаем блок <think> … </think>
+    cleaned = re.sub(r"<think>[\s\S]*?</think>", "", raw, flags=re.I).strip()
 
-data = items[0]['json']
-prediction = data.get('document', {}).get('inference', {}).get('prediction', {})
+    # 2) достаём subject
+    subj_match = re.search(r"<subject>(.*?)</subject>", cleaned, re.S)
+    subject = subj_match.group(1).strip() if subj_match else "Kein Betreff"
 
-# Общая информация
-receipt_date = safe_get_value(prediction.get('date'))
-receipt_number = safe_get_value(prediction.get('receipt_number'))
-supplier = safe_get_value(prediction.get('supplier_name'))
-category = safe_get_value(prediction.get('category'))
-total_amount = data.get('document', {}).get('inference', {}).get('prediction', {}).get('total_amount', {}).get('value', 0.0)
-currency = prediction.get('locale', {}).get('currency', 'EUR')
-line_items = prediction.get('line_items', [])
+    # 3) достаём HTML-документ
+    html_match = re.search(r"<!DOCTYPE html>[\s\S]*?</html>", cleaned, re.I)
+    html_full = html_match.group(0).strip() if html_match else ""
 
-# Сумма по строкам
-calculated_total = sum(safe_get_value(item.get('total_amount')) for item in line_items)
+    # 4) если body отсутствует или не структурирован -- «чинить»
+    body_match = re.search(r"<body>([\s\S]*?)</body>", html_full, re.I)
+    if body_match:
+        body_inner = body_match.group(1).strip()
+    else:
+        # fallback: превращаем текст-абзацы и "- " пункты в HTML
+        text = re.sub(r" {2,}", " ", cleaned)       # убираем двойные пробелы
+        paragraphs = []
+        bullets = []
+        for line in text.splitlines():
+            line = line.strip()
+            if line.startswith("-"):
+                bullets.append(line.lstrip("- ").strip())
+            elif line:
+                if bullets:
+                    paragraphs.append("<ul>" + "".join(f"<li>{escape(b)}</li>" for b in bullets) + "</ul>")
+                    bullets = []
+                paragraphs.append(f"<p>{escape(line)}</p>")
+        if bullets:
+            paragraphs.append("<ul>" + "".join(f"<li>{escape(b)}</li>" for b in bullets) + "</ul>")
+        body_inner = "\n".join(paragraphs)
+        html_full = f"""<!DOCTYPE html>
+<html><head><meta charset="UTF-8"></head><body>{body_inner}</body></html>"""
 
-# Разница
-diff_amount = round(abs(calculated_total - total_amount), 2)
-is_equal = math.isclose(calculated_total, total_amount, abs_tol=0.01)
+    return {
+        "email_subject": subject,
+        "email_body_html": html_full
+    }
 
-# Уникальное время для идентификации
-now = int(datetime.now().timestamp())
+# === n8n ===
+cleaned_output = items[0]["json"]["output"]   # или output_cleaned, если уже удалён <think>
+result = structure_ai_email(cleaned_output)
 
-# Если нет позиций вообще
-if not line_items:
-    return [{
-        "json": {
-            "Row_id": now * 100,
-            "Дата": receipt_date,
-            "Номер чека": receipt_number,
-            "Поставщик": supplier,
-            "Категория": category,
-            "Сумма по чеку": total_amount,
-            "Сумма по строкам": calculated_total,
-            "Разница в сумме": diff_amount,
-            "Совпадают ли суммы": is_equal,
-            "Валюта": currency,
-            "Название товара": "❌ Позиции не распознаны",
-            "Цена": 0,
-            "Кол-во": 0
-        }
-    }]
-
-# Если позиции есть
-output = []
-for i, item in enumerate(line_items):
-    output.append({
-        "Row_id": now * 100 + i,
-        "Дата": receipt_date,
-        "Номер чека": receipt_number,
-        "Поставщик": supplier,
-        "Категория": category,
-        "Сумма по чеку": total_amount,
-        "Сумма по строкам": calculated_total,
-        "Разница в сумме": diff_amount,
-        "Совпадают ли суммы": is_equal,
-        "Валюта": currency,
-        "Название товара": safe_get_value(item.get('description'), 'Без названия'),
-        "Цена": safe_get_value(item.get('total_amount')),
-        "Кол-во": safe_get_value(item.get('quantity'), 1)
-    })
-
-return [{ "json": row } for row in output]
+return [{"json": result}]

@@ -131,7 +131,7 @@ if __name__ == "__main__":
     u = User(
         "Ігор", "Петров", "Сергійович",
         datetime.date(2000, 5, 12),
-        "example@gmail.com",
+        "litus.work@gmail.com",
     )
     registered = register_user(u)
     print("Зареєстровано:", registered)
