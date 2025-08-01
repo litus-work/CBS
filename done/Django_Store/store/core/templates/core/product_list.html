@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Все товары</h1>
+<nav>
+    <strong>Категории:</strong>
+    <ul>
+        <li><a href="{% url 'core:product_list' %}">Все товары</a></li>
+        {% for cat in categories %}
+            <li>
+                <a href="{% url 'core:product_list_by_category' cat.slug %}">
+                    {{ cat.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</nav>
+<ul>
+    {% for product in products %}
+        <li>
+            <a href="{% url 'core:product_detail' product.slug %}">
+                {{ product.name }} — {{ product.price }} грн
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,1 @@
+from main.views.base import BaseSimplePage
