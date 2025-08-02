@@ -1,0 +1,2 @@
+class UserQueueException(Exception):
+    pass

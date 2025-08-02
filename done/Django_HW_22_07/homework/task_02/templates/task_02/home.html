@@ -1,0 +1,13 @@
+{% extends "task_02/base.html" %}
+
+{% block title %}Головна{% endblock %}
+
+{% block content %}
+    <h2>Ласкаво просимо до всесвіту зоряних воєн!</h2>
+    <p>Оберіть сторінку з персонажем:</p>
+    <ul>
+        <li><a href="{% url 'task_02:luke' %}">Люк Скайуокер</a></li>
+        <li><a href="{% url 'task_02:leia' %}">Лея Органа</a></li>
+        <li><a href="{% url 'task_02:han' %}">Хан Соло</a></li>
+    </ul>
+{% endblock %}

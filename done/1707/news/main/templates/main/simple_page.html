@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>News Today | {{title}}</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #1e1e2f;
+      color: #fff;
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      padding: 0.5rem;
+    }
+
+    .nav-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #3F2B96, #A8C0FF, white 90%);
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 1px 1px 5px black;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      min-height: 100vh;
+    }
+
+    .articles {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .article {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .article:hover {
+      transform: translateY(-5px);
+    }
+
+    .article img {
+      max-width: 100%;
+      border-radius: 6px;
+    }
+
+    .article h3 {
+      margin-top: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .article p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      background-color: #1e1e2f;
+      color: white;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 1rem;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <nav>
+      <div class="logo">NewsToday</div>
+      <div class="nav-toggle" id="toggle">&#9776;</div>
+      <div class="nav-links" id="navLinks">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'about' %}">About Us</a>
+        <a href="{% url 'info' %}">Info</a>
+        <a href="{% url 'contacts' %}">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <img src="{{image}}" class="main-img" alt="">
+    <h1>{{title}}</h1>
+    <p>{{content}}</p>
+  </main>
+
+  <footer>
+    &copy; 2025 NewsToday. All rights reserved.
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('toggle');
+    const navLinks = document.getElementById('navLinks');
+
+    toggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>

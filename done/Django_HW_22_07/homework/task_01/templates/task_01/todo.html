@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List</title>
+</head>
+<body>
+    <h1>Список справ</h1>
+    <ul>
+        {% for item in tasks %}
+            <li><strong>Priority {{ item.priority }}:</strong> {{ item.task }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
