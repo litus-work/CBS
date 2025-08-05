@@ -2,7 +2,17 @@
 
 {% block content %}
 <h1>{{ product.name }}</h1>
+
+{% if product.images.all %}
+    <div style="display: flex; gap: 20px;">
+        {% for image in product.images.all %}
+            <img src="{{ image.image.url }}" alt="{{ image.alt_text }}" width="300">
+        {% endfor %}
+    </div>
+{% endif %}
+
 <p>{{ product.description }}</p>
 <p><strong>Цена:</strong> {{ product.price }} грн</p>
 <a href="/">← Назад ко всем товарам</a>
+
 {% endblock %}
