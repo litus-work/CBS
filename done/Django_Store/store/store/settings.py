@@ -119,6 +119,11 @@ STATIC_URL = 'static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+SITE_NAME = "GadgetShop"
+TEMPLATES[0]["OPTIONS"]["context_processors"] += [
+    "core.context_processors.site_settings",
+]
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
