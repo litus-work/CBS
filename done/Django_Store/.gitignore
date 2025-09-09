@@ -1,0 +1,22 @@
+# Виртуальное окружение
+.venv/
+
+# Файлы БД
+*.sqlite3
+
+# Кэш Python
+__pycache__/
+*.pyc
+
+# Логи
+*.log
+
+# Node.js зависимости
+node_modules/
+
+# Файлы IDE
+.idea/
+.vscode/
+.env
+
+
