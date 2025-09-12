@@ -23,6 +23,18 @@
     <h1 class="text-3xl font-bold mb-2">{{ product.name }}</h1>
     <p class="text-gray-600 mb-4">{{ product.description }}</p>
     <p class="text-2xl font-semibold mb-6">{{ product.price }} грн</p>
+    {% if product.stock > 0 %}
+        <form action="{% url 'cart:add' product.id %}" method="post" class="mt-4 flex gap-2">
+            {% csrf_token %}
+            <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}"
+                   class="w-24 border rounded px-3 py-2">
+            <input type="hidden" name="override" value="False">
+            <button class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">В корзину</button>
+        </form>
+    {% else %}
+      <div class="mt-4 text-red-600 text-sm">Нет в наличии</div>
+    {% endif %}
+
     <a href="/"
        class="inline-block text-blue-600 hover:underline">← Назад ко всем товарам</a>
   </div>

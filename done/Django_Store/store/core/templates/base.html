@@ -7,7 +7,6 @@
   <style>
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     .no-scrollbar::-webkit-scrollbar { display: none; }
-    /* ширина «окна» карусели под 1/2/3 карточки (18rem = w-72, 1rem = gap-4/4) */
     .carousel-viewport { width: calc(18rem + 1rem); }            /* mobile: 1 карточка */
     @media (min-width: 640px) { .carousel-viewport { width: calc(2*18rem + 1*1rem); } } /* sm: 2 */
     @media (min-width: 1024px){ .carousel-viewport { width: calc(3*18rem + 2*1rem); } } /* lg: 3 */
@@ -35,6 +34,7 @@
 
             {% endif %}
         </div>
+        <a href="{% url 'cart:detail' %}" class="text-blue-600 hover:underline">Корзина{% if cart_count %} ({{ cart_count }}){% endif %}</a>
     </div>
 
   </header>
@@ -65,9 +65,20 @@
       {% block content %}{% endblock %}
     </main>
   </div>
+  {% if messages %}
+  <div class="max-w-6xl mx-auto px-4 mt-3 space-y-2">
+    {% for message in messages %}
+      <div class="px-3 py-2 rounded text-sm
+                  {% if message.tags == 'error' %}bg-red-50 text-red-700
+                  {% elif message.tags == 'success' %}bg-green-50 text-green-700
+                  {% else %}bg-blue-50 text-blue-700{% endif %}">
+        {{ message }}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
 
   <script>
-    // шаг = ширина первой карточки + gap
     function getStep(rowEl) {
       const card = rowEl.querySelector('[data-card]');
       const gap = 16; // gap-4

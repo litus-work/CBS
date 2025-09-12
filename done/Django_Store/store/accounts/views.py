@@ -12,4 +12,4 @@ def signup(request):
             return redirect('core:product_list')
     else:
         form = SignUpForm()
-    return render(request, 'registration/signup.html', {'form': form})
+    return render(request, 'accounts/signup.html', {'form': form})

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'accounts',
+    'cart',
 ]
 
 MIDDLEWARE = [
@@ -122,7 +123,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 SITE_NAME = "GadgetShop"
 TEMPLATES[0]["OPTIONS"]["context_processors"] += [
-    "core.context_processors.site_settings",
+    "core.context_processors.site_settings", 'cart.context_processors.cart',
 ]
 
 # Default primary key field type
@@ -132,3 +133,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'core:product_list'
 LOGOUT_REDIRECT_URL = 'core:product_list'
 LOGIN_URL = 'accounts:login'
+CART_SESSION_ID = 'cart'

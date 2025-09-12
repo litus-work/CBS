@@ -21,6 +21,17 @@
           {{ product.name }}
         </a>
         <p class="mt-1 text-gray-600">{{ product.price }} грн</p>
+        {% if product.stock > 0 %}
+          <form action="{% url 'cart:add' product.id %}" method="post" class="mt-2">
+            {% csrf_token %}
+            <input type="hidden" name="quantity" value="1">
+            <input type="hidden" name="override" value="False">
+            <button class="text-sm px-3 py-1 rounded bg-blue-50 text-blue-700 hover:bg-blue-100">В корзину</button>
+          </form>
+        {% else %}
+          <div class="text-xs text-red-600 mt-2">Нет в наличии</div>
+        {% endif %}
+
       </article>
     {% empty %}
       <p class="text-gray-600">В этой категории пока нет товаров.</p>

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Корзина · GadgetShop{% endblock %}
+
+{% block content %}
+<h2 class="text-3xl font-bold mb-6">Корзина</h2>
+
+{% if cart|length %}
+  <div class="space-y-4">
+    {% for item in cart %}
+        <div class="bg-white rounded-xl shadow p-4 flex items-center gap-4">
+    {% with p=item.product %}
+
+        {% if p.images.all %}
+            <img src="{{ p.images.first.image.url }}" alt="{{ p.name }}" class="w-20 h-20 object-contain">
+        {% endif %}
+        <div class="flex-1">
+            <a href="{% url 'core:product_detail' p.slug %}" class="font-semibold hover:underline">{{ p.name }}</a>
+            <div class="text-sm text-gray-600">Цена: {{ item.price }} грн</div>
+        </div>
+        {% if p.stock == 0 %}
+            <div class="text-red-600 text-sm">Нет в наличии</div>
+        {% endif %}
+        <form action="{% url 'cart:add' p.id %}" method="post" class="flex items-center gap-2">
+          {% csrf_token %}
+          <input type="number"
+                 name="quantity"
+                 min="1"
+                 max="{{ p.stock }}"
+                 value="{{ item.quantity }}"
+                 class="w-24 border rounded px-3 py-2">
+          <input type="hidden" name="override" value="True">
+          <button class="px-3 py-2 rounded bg-gray-100 hover:bg-gray-200">Обновить</button>
+        </form>
+
+        <div class="text-xs text-gray-500">В наличии: {{ p.stock }}</div>
+        <div class="w-32 text-right font-semibold">{{ item.total_price }} грн</div>
+
+        <form action="{% url 'cart:remove' p.id %}" method="post">
+            {% csrf_token %}
+            <button class="px-3 py-2 rounded bg-red-50 text-red-700 hover:bg-red-100">Удалить</button>
+        </form>
+{% endwith %}
+  </div>
+    {% endfor %}
+  </div>
+
+  <div class="mt-6 flex items-center justify-between">
+    <form action="{% url 'cart:clear' %}" method="post">
+      {% csrf_token %}
+      <button class="px-4 py-2 rounded bg-gray-100 hover:bg-gray-200">Очистить корзину</button>
+    </form>
+
+    <div class="text-xl">
+      Итого: <span class="font-bold">{{ cart.get_total_price }} грн</span>
+    </div>
+  </div>
+
+    <div class="mt-4 text-right">
+      {% if user.is_authenticated %}
+        <a href="#"
+           class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700">Оформить заказ</a>
+      {% else %}
+        <button class="px-4 py-2 rounded bg-gray-300 text-gray-600 cursor-not-allowed">Оформить заказ</button>
+        <p class="mt-2 text-sm text-red-600">Для оформления заказа необходимо
+            <a href="{% url 'accounts:login' %}" class="underline">войти</a>
+            или
+            <a href="{% url 'accounts:signup' %}" class="underline">зарегистрироваться</a>.
+        </p>
+      {% endif %}
+    </div>
+{% else %}
+  <p>Корзина пуста.</p>
+{% endif %}
+{% endblock %}
